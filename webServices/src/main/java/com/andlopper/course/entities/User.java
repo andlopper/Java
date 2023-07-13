@@ -3,6 +3,8 @@ package com.andlopper.course.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity //Instruindo JPA como converter os objetos para modelo relacional
@@ -15,6 +17,8 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+    @OneToMany(mappedBy = "client") //Atributo mapeado por este nome da classe Order
+    private List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -65,6 +69,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
