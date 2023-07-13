@@ -1,9 +1,15 @@
 package com.andlopper.course.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity //Instruindo JPA como converter os objetos para modelo relacional
+@Table(name = "tb_user") //Renomeando o nome "user" para evitar conflito no H2
 public class User implements Serializable {
+    @Id //Indicando que "Id" é a chave primária
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Autoincrement
     private Long id;
     private String name;
     private String email;
