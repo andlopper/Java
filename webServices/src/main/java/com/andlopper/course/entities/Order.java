@@ -1,5 +1,7 @@
 package com.andlopper.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,6 +14,7 @@ public class Order implements Serializable {
     @Id //Indicando que "Id" é a chave primária
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Autoincrement
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") //Mostrar no formato ISO
     private Instant moment;
     @ManyToOne //Chave estrangeira, indica que é muitos para um
     @JoinColumn(name = "client_id") //Nome da chave
