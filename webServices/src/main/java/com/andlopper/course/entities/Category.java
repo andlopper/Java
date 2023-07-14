@@ -13,9 +13,8 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Autoincrement
     private Long id;
     private String name;
-//    @JsonIgnore //Evitar loop na consulta
-//    @ManyToMany(mappedBy = "categories") //Atributo mapeado por este nome da classe Product
-    @Transient //Provisório
+    @JsonIgnore //Evitar loop na consulta
+    @ManyToMany(mappedBy = "categories") //Atributo mapeado por este nome da classe Product
     private Set<Product> products = new HashSet<>();
 
     public Category() {

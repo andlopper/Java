@@ -16,9 +16,11 @@ public class Product implements Serializable {
     private String description;
     private Double price;
     private String imgUrl;
-//    @JsonIgnore //Evitar loop na consulta
-//    @ManyToMany(mappedBy = "products") //Atributo mapeado por este nome da classe Category
-    @Transient
+
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id")) //Chaves que irão associar a tabela Product com Category
     private Set<Category> categories = new HashSet<>(); //Conjunto
 
     public Product() {
