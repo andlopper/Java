@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity //Instruindo JPA como converter os objetos para modelo relacional
 @Table(name = "tb_category") //Renomeando o nome "user" para evitar conflito no H2
@@ -16,8 +14,9 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 //    @JsonIgnore //Evitar loop na consulta
-//    @OneToMany(mappedBy = "client") //Atributo mapeado por este nome da classe Order
-//    private List<Order> orders = new ArrayList<>();
+//    @ManyToMany(mappedBy = "categories") //Atributo mapeado por este nome da classe Product
+    @Transient //Provisório
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -41,6 +40,10 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
