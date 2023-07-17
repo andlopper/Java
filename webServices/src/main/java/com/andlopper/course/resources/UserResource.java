@@ -37,4 +37,10 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); //Endereço do novo recurso inserido
         return ResponseEntity.created(uri).body(obj); //201 - Novo recurso (Created)
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build(); //204 - Resposta vazia
+    }
 }
