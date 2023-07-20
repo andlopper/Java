@@ -2,8 +2,11 @@ package com.andlopper.course.services;
 
 import com.andlopper.course.entities.User;
 import com.andlopper.course.repositories.UserRepository;
+import com.andlopper.course.services.exceptions.DatabaseException;
 import com.andlopper.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +33,15 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id); //Deleta usuário
+        try {
+            repository.deleteById(id); //Deleta usuário
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id); //NÃO FUNCIONANDO
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj){
